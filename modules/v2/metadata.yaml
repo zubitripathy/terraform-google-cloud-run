@@ -292,6 +292,18 @@ spec:
             spec:
               outputExpr: "{\"MODEL_ARMOR_TEMPLATE_ID\": template_id}"
               inputPath: env_vars
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-network//modules/private-service-connect-endpoints-for-published-services
+              version: v18.0.0
+            spec:
+              outputExpr: "{\"PSC_ENDPOINT_IP\": ip_address}"
+              inputPath: env_vars
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-network//modules/private-service-connect-producer
+              version: v17.1.0
+            spec:
+              outputExpr: "{\"SERVICE_ATTACHMENT_ID\": service_attachment_id}"
+              inputPath: env_vars
       - name: node_selector
         description: Node Selector describes the hardware requirements of the GPU resource. [More info](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloud_run_v2_service#nested_template_node_selector).
         varType: |-
