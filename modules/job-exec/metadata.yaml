@@ -110,6 +110,36 @@ spec:
               version: ">= 8.0"
             spec:
               outputExpr: "[\"roles/storage.objectAdmin\"]"
+          - source:
+              source: github.com/GoogleCloudPlatform/terraform-google-alloy-db
+              version: ">= 8.0.1"
+            spec:
+              outputExpr: "[\"roles/alloydb.admin\"]"
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-bigquery
+              version: ">= 10.2.1"
+            spec:
+              outputExpr: "[\"roles/bigquery.dataEditor\"]"
+          - source:
+              source: github.com/GoogleCloudPlatform/terraform-google-bigtable
+              version: ">= 0.4.1"
+            spec:
+              outputExpr: "[\"roles/bigtable.admin\"]"
+          - source:
+              source: github.com/GoogleCloudPlatform/terraform-google-document-ai
+              version: ">= 0.0.1"
+            spec:
+              outputExpr: "[\"roles/documentai.viewer\"]"
+          - source:
+              source: github.com/GoogleCloudPlatform/terraform-google-firestore
+              version: ">= 0.2.2"
+            spec:
+              outputExpr: "[\"roles/datastore.user\"]"
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-pubsub
+              version: ">= 8.6.0"
+            spec:
+              outputExpr: "[\"roles/pubsub.publisher\", \"roles/pubsub.subscriber\"]"
       - name: argument
         description: Arguments passed to the ENTRYPOINT command, include these only if image entrypoint needs arguments
         varType: list(string)
@@ -132,6 +162,42 @@ spec:
               version: ">= 0.13"
             spec:
               outputExpr: "{ \"name\": service_name,\"value\": service_uri}"
+          - source:
+              source: github.com/GoogleCloudPlatform/terraform-google-alloy-db
+              version: ">= 8.0.1"
+            spec:
+              outputExpr: "{\"name\": \"ALLOYDB_INSTANCE_HOST\", \"value\": primary_instance_ip}"
+              inputPath: env_vars
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-bigquery
+              version: ">= 10.2.1"
+            spec:
+              outputExpr: "{\"name\": \"BIGQUERY_DATASET\", \"value\": env_vars.BIGQUERY_DATASET}"
+              inputPath: env_vars
+          - source:
+              source: github.com/GoogleCloudPlatform/terraform-google-bigtable
+              version: ">= 0.4.1"
+            spec:
+              outputExpr: "{\"name\": \"BIGTABLE_INSTANCE_ID\", \"value\": instance_id}"
+              inputPath: env_vars
+          - source:
+              source: github.com/GoogleCloudPlatform/terraform-google-document-ai
+              version: ">= 0.0.1"
+            spec:
+              outputExpr: "{\"name\": \"DOCUMENT_AI_PROCESSOR_ID\", \"value\": id}"
+              inputPath: env_vars
+          - source:
+              source: github.com/GoogleCloudPlatform/terraform-google-firestore
+              version: ">= 0.2.2"
+            spec:
+              outputExpr: "{\"name\": \"FIRESTORE_DATABASE_ID\", \"value\": database_id}"
+              inputPath: env_vars
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-pubsub
+              version: ">= 8.6.0"
+            spec:
+              outputExpr: "{\"name\": \"TOPIC_ID\", \"value\": id}"
+              inputPath: env_vars
       - name: env_secret_vars
         description: Environment variables (Secret Manager)
         varType: |-
