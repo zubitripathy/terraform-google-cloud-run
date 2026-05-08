@@ -124,7 +124,7 @@ spec:
               source: github.com/GoogleCloudPlatform/terraform-google-bigtable
               version: ">= 0.4.1"
             spec:
-              outputExpr: "[\"roles/bigtable.admin\"]"
+              outputExpr: "[\"roles/bigtable.user\"]"
           - source:
               source: github.com/GoogleCloudPlatform/terraform-google-document-ai
               version: ">= 0.0.1"
@@ -139,7 +139,7 @@ spec:
               source: github.com/terraform-google-modules/terraform-google-pubsub
               version: ">= 8.6.0"
             spec:
-              outputExpr: "[\"roles/pubsub.publisher\", \"roles/pubsub.subscriber\"]"
+              outputExpr: "[\"roles/pubsub.admin\"]"
       - name: argument
         description: Arguments passed to the ENTRYPOINT command, include these only if image entrypoint needs arguments
         varType: list(string)
@@ -166,17 +166,17 @@ spec:
               source: github.com/GoogleCloudPlatform/terraform-google-alloy-db
               version: ">= 8.0.1"
             spec:
-              outputExpr: "{\"name\": \"ALLOYDB_INSTANCE_HOST\", \"value\": primary_instance_ip}"
+              outputExpr: "[{\"name\": \"ALLOYDB_INSTANCE_HOST\", \"value\": env_vars.ALLOYDB_INSTANCE_HOST}, {\"name\": \"ALLOYDB_READ_REPLICAS\", \"value\": env_vars.ALLOYDB_READ_REPLICAS}]"
           - source:
               source: github.com/terraform-google-modules/terraform-google-bigquery
               version: ">= 10.2.1"
             spec:
-              outputExpr: "{\"name\": \"BIGQUERY_DATASET\", \"value\": env_vars.BIGQUERY_DATASET}"
+              outputExpr: "{\"name\": \"BIGQUERY_DATASET_ID\", \"value\": bigquery_dataset.dataset_id}"
           - source:
               source: github.com/GoogleCloudPlatform/terraform-google-bigtable
               version: ">= 0.4.1"
             spec:
-              outputExpr: "{\"name\": \"BIGTABLE_INSTANCE_ID\", \"value\": instance_id}"
+              outputExpr: "{\"name\": \"BIGTABLE_INSTANCE_NAME\", \"value\": instance_name}"
           - source:
               source: github.com/GoogleCloudPlatform/terraform-google-document-ai
               version: ">= 0.0.1"
@@ -191,7 +191,7 @@ spec:
               source: github.com/terraform-google-modules/terraform-google-pubsub
               version: ">= 8.6.0"
             spec:
-              outputExpr: "{\"name\": \"TOPIC_ID\", \"value\": id}"
+              outputExpr: "[{\"name\": \"PUBSUB_TOPIC_NAME\", \"value\": topic}, {\"name\": \"PUBSUB_TOPIC_URI\", \"value\": uri}]"
       - name: env_secret_vars
         description: Environment variables (Secret Manager)
         varType: |-
